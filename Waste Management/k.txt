@@ -1,0 +1,21 @@
+create database complaints_db;
+use complaints_db;
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    username VARCHAR(50) UNIQUE,
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+    role ENUM('User', 'Admin') NOT NULL
+);
+CREATE TABLE complaints (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    name VARCHAR(100),
+    issue_type VARCHAR(255),
+    custom_complaint TEXT,
+    address VARCHAR(255),
+    status ENUM('Submitted', 'Under Review', 'Resolved') DEFAULT 'Submitted',
+    date_created DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
